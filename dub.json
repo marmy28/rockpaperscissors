@@ -5,5 +5,8 @@
 		"Matthew"
 	],
 	"description": "Rock, Paper, Scissors",
-	"license": "proprietary"
+	"license": "none",
+    "dependencies": {
+        "gtk-d": "~>3.3.1"
+    }
 }

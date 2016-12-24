@@ -32,11 +32,10 @@ public class MainWindow : ApplicationWindow
         auto b = new Button("Play");
         b.addOnClicked(delegate void(Button button) 
         {
-            auto i = new RpsDialog();
+            auto i = new RpsDialog(this);
             scope(exit) i.destroy();
-            i.showAll(); //this is not pausing like I want it to
-            immutable userChoice = i.Choice;
-            import std.stdio;
+            immutable userChoice = i.showDialog();
+            import std.stdio : writeln;
             if (userChoice == GameChoices.rock)
                 writeln("Rock");
             immutable computerChoice = getComputerChoice();

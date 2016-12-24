@@ -1,30 +1,31 @@
 module views.rpsdialog;
 
-public import gtk.Window;
+public import gtk.Dialog;
+private import gtk.Window;
 private import std.conv : to;
-private import gtkc.gtk;
-private import gtk.Button;
-private import gtk.HButtonBox;
-private import models.enumsandresults;
+private import gtkc.gtktypes : GtkResponseType;
+private import gtk.MessageDialog : GtkDialogFlags;
+public import models.enumsandresults;
+private import std.algorithm.iteration;
+private import std.array;
+private import std.traits : EnumMembers;
 
-public class RpsDialog : Window
+public class RpsDialog : Dialog
 {
-    private GameChoices _Choice;
-    public GameChoices Choice() @property
+    public this(Window parent)
     {
-        return this._Choice;
+        super("Hello", parent, GtkDialogFlags.MODAL, getStringArray(), getResponseType());
     }
-    public this()
+    private static string[] getStringArray()
     {
-        super("Choose");
-        auto hButtonBox = new HButtonBox();
-        foreach(GameChoices gameChoice; [EnumMembers!GameChoices])
-        {
-            auto b = new Button();
-            b.setLabel(gameChoice.to!string);
-            b.addOnClicked(delegate void(Button button) { this._Choice = gameChoice; this.close(); });
-            hButtonBox.packStart(b, true, true, 3);
-        }
-        this.add(hButtonBox);
+        return [EnumMembers!GameChoices].map!(a => a.to!string)().array();
+    }
+    private static GtkResponseType[] getResponseType()
+    {
+        return [EnumMembers!GameChoices].map!(a => a.to!GtkResponseType)().array();
+    }
+    public GameChoices showDialog()
+    {
+        return this.run().to!GameChoices;
     }
 }

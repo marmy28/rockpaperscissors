@@ -1,5 +1,5 @@
 module models.enumsandresults;
-
+import gtkc.gtktypes : ResponseType;
 import std.algorithm.iteration : filter;
 import std.algorithm.searching : all;
 import std.array : array, empty, front;
@@ -14,11 +14,11 @@ import std.traits : EnumMembers;
 
 // if you add to the number of choices here make sure
 // to add the options into the getResult function
-public enum GameChoices : ubyte
+public enum GameChoices : ResponseType
 {
-    rock,
-    paper,
-    scissors
+    rock = ResponseType.ACCEPT,
+    paper = ResponseType.APPLY,
+    scissors = ResponseType.CANCEL
 }
 public enum MatchOutcome : ubyte
 {

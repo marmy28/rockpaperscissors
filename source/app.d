@@ -1,6 +1,7 @@
 import views.mainwindow;
 import gio.Application : GioApplication = Application;
 import gtk.Application;
+import std.stdio;
 
 int main(string[] args)
 {
